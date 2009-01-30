@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!--
+		no 'id' required, HandlerMapping beans are automatically detected by
+		the DispatcherServlet
+	-->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>
+				/start.htm=startCardWizard
+				/selectCardFaces.htm=selectCardFaces
+				/jersey-wizard.htm=selectJerseyWizard
+            </value>
+		</property>
+	</bean>
+
+	<bean id="selectJerseyWizard"
+		class="net.blitzstein.playground.form_wizard.web.JerseySelectionWizardController">
+		<property name="commandName" value="jerseyCommand" />
+		<property name="pages">
+			<list>
+				<value>jerseySelectQuantity</value>
+				<value>jerseyCustomizeSelections</value>
+				<value>jerseyReviewCustomizations</value>
+			</list>
+		</property>
+		<property name="jerseys">
+			<list>
+				<ref bean="jersey1" />
+				<ref bean="jersey2" />
+				<ref bean="jersey3" />
+				<ref bean="jersey4" />
+			</list>
+		</property>
+	</bean>
+	<bean id="selectCardFaces"
+		class="net.blitzstein.playground.form_wizard.web.StartCardSelectionController">
+		<property name="commandName" value="giftCard" />
+		<property name="pages">
+			<list>
+				<value>selectCardFaces</value>
+				<value>selectRecipients</value>
+				<value>reviewCards</value>
+			</list>
+		</property>
+		<property name="availableCards">
+			<list>
+				<ref bean="sampleCard1" />
+				<ref bean="sampleCard2" />
+				<ref bean="sampleCard3" />
+				<ref bean="sampleCard4" />
+				<ref bean="sampleCard5" />
+				<ref bean="sampleCard6" />
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="sampleCard1" class="net.blitzstein.playground.domain.GiftCardImpl">
+		<property name="id" value="1" />
+		<property name="cardFace" value="temp-card-face.gif" />
+	</bean>
+	<bean id="sampleCard2" class="net.blitzstein.playground.domain.GiftCardImpl">
+		<property name="id" value="2" />
+		<property name="cardFace" value="temp-card-face-2.gif" />
+	</bean>
+	<bean id="sampleCard3" class="net.blitzstein.playground.domain.GiftCardImpl">
+		<property name="id" value="3" />
+		<property name="cardFace" value="temp-card-face-3.gif" />
+	</bean>
+	<bean id="sampleCard4" class="net.blitzstein.playground.domain.GiftCardImpl">
+		<property name="id" value="4" />
+		<property name="cardFace" value="temp-card-face.gif" />
+	</bean>
+	<bean id="sampleCard5" class="net.blitzstein.playground.domain.GiftCardImpl">
+		<property name="id" value="5" />
+		<property name="cardFace" value="temp-card-face-2.gif" />
+	</bean>
+	<bean id="sampleCard6" class="net.blitzstein.playground.domain.GiftCardImpl">
+		<property name="id" value="6" />
+		<property name="cardFace" value="temp-card-face-3.gif" />
+	</bean>
+
+	<bean id="jersey1" class="net.blitzstein.playground.form_wizard.domain.FootballJersey">
+		<property name="id" value="1" />
+		<property name="image" value="p2262612th.gif" />
+	</bean>
+	<bean id="jersey2" class="net.blitzstein.playground.form_wizard.domain.FootballJersey">
+		<property name="id" value="2" />
+		<property name="image" value="p3121185th.gif" />
+	</bean>
+	<bean id="jersey3" class="net.blitzstein.playground.form_wizard.domain.FootballJersey">
+		<property name="id" value="3" />
+		<property name="image" value="p4150491th.gif" />
+	</bean>
+	<bean id="jersey4" class="net.blitzstein.playground.form_wizard.domain.FootballJersey">
+		<property name="id" value="4" />
+		<property name="image" value="p4837431th.gif" />
+	</bean>
+
+
+	<bean id="selectRecepients"
+		class="org.springframework.web.servlet.mvc.UrlFilenameViewController">
+	</bean>
+
+	<bean id="startCardWizard"
+		class="org.springframework.web.servlet.mvc.UrlFilenameViewController">
+	</bean>
+
+</beans>
